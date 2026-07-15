@@ -30,7 +30,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  // get user information from teh frontend
+  // get user information from the frontend
   // validation - not empty
   // check if user already exits: username , email
   // check for images, check for avatar
@@ -54,7 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const existingUSer = await User.findOne({
-    $or: [{ username }, { email }],
+    $or: [{ username }, { email }], // it is used to check if the username or email already exists in the database. The $or operator allows us to specify multiple conditions, and if any of them are true, the query will return a matching document. In this case, we are checking if there is a user with the same username or email as the one provided in the request body.
   });
 
   if (existingUSer) {
@@ -173,8 +173,8 @@ const loggedOut = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
-        refreshToken: undefined,
+      $unset: {
+        refreshToken: 1, // This remove field from the document
       },
     },
     {

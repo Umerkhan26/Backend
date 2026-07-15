@@ -1,18 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-const subscriptionSchema = new mongoose.Schema(
+const tweeSchema = new Schema(
   {
-    subscriber: {
-      type: mongoose.Schema.Types.ObjectId, // one who is subscribing
-      ref: "User",
+    content: {
+      type: String,
+      required: true,
+      lowerCase: true,
     },
 
-    channel: {
-      type: mongoose.Schema.Types.ObjectId, // one to whom 'subscriber' is subscribing
+    owner: {
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
   },
   { timestamps: true },
 );
 
-export const Subscription = mongoose.model("Subscription", subscriptionSchema);
+export const Tweet = mongoose.model("Tweet", tweeSchema);
